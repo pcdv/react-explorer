@@ -32,7 +32,7 @@ export default class Node extends Component {
     var children
     if (this.state.open) {
       children = (
-        <div className="children-margin">
+        <div className="children">
           {model.getChildren(node).map(n => <Node model={model} node={n} key={model.getLabel(n)}/>)}
         </div>
       )
@@ -40,7 +40,7 @@ export default class Node extends Component {
     return (
       <div className={cls}>
         <div className="handle" onClick={this.toggle}/>
-        <span>{model.getLabel(node)}</span>
+        <div className="label">{model.getLabel(node)}</div>
         {children}
       </div>
     );

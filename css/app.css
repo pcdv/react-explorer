@@ -1,5 +1,9 @@
-.children-margin {
+.node > .children {
   margin-left: 10px;
+}
+.node > .label {
+  height: 1em;
+  display: inline-block;
 }
 .node .handle {
   display: inline-block;
@@ -7,17 +11,14 @@
   cursor: pointer;
   width: 10px;
 }
-.node.isDir .handle:after {
+.node.isDir > .handle:after {
   content: '▾';
 }
 .node.isDir.closed > .handle {
   transform: rotate(-90deg);
-  transition: transform ease-in .05s;
+  transition: transform ease-in .04s;
 }
 .node.isDir.open > .handle {
   transform: rotate(0deg);
-  transition: transform ease-in .05s;
-}
-.node.leaf .handle:after {
-  content: '';
+  transition: transform ease-in .04s;
 }
