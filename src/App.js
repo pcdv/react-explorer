@@ -2,8 +2,20 @@ import React, {Component} from 'react';
 import Explorer from './Explorer'
 
 class Model {
+  constructor(tree) {
+    this.tree = tree
+  }
+
+  getRoot() {
+    return this.tree
+  }
+
+  getLabel(node) {
+    return node.label
+  }
+
   isLeaf(node) {
-    return !node.isDir
+    return !node.children
   }
 
   getChildren(node) {
@@ -15,31 +27,22 @@ export default class App extends Component {
   render() {
     var tree = {
       label: "Home",
-      isDir: true,
       children: [
         {
           label: "Public",
-          isDir: true,
           children: [
             {
-              label: "hello.txt",
-              isDir: false
+              label: "hello.txt"
             }, {
-              label: "world.txt",
-              isDir: false
+              label: "world.txt"
             }
           ]
         }, {
-          label: "README",
-          isDir: false
+          label: "README"
         }
       ]
     }
 
-    return (
-      <div className="left">
-        <Explorer model={new Model(tree)}/>
-      </div>
-    );
+    return (<Explorer model={new Model(tree)}/>);
   }
 }

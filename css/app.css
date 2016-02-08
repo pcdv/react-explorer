@@ -1,5 +1,23 @@
-.left {
-  float: left;
-  width: 50%;
-  border: 1px solid red;
+.children-margin {
+  margin-left: 10px;
+}
+.node .handle {
+  display: inline-block;
+  margin-right: 6px;
+  cursor: pointer;
+  width: 10px;
+}
+.node.isDir .handle:after {
+  content: '▾';
+}
+.node.isDir.closed > .handle {
+  transform: rotate(-90deg);
+  transition: transform ease-in .05s;
+}
+.node.isDir.open > .handle {
+  transform: rotate(0deg);
+  transition: transform ease-in .05s;
+}
+.node.leaf .handle:after {
+  content: '';
 }
