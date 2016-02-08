@@ -32,9 +32,8 @@
   left: 0;
   right: 0;
   height: 1em;
-  background: lightblue;
   opacity: 0.5;
 }
-.node > .overlay :after {
-  margin-top: -1em;
+.node.selected > .overlay {
+  background: lightblue;
 }
