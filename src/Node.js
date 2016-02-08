@@ -39,6 +39,7 @@ export default class Node extends Component {
     }
     return (
       <div className={cls}>
+        <div className="overlay"/>
         <div className="handle" onClick={this.toggle}/>
         <div className="label">{model.getLabel(node)}</div>
         {children}

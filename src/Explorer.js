@@ -10,7 +10,9 @@ import Node from './Node'
 export default class Explorer extends Component {
   render() {
     return (
-      <Node node={this.props.model.getRoot()} model={this.props.model}/>
+      <div style={{position: 'relative'}}>
+        <Node node={this.props.model.getRoot()} model={this.props.model}/>
+      </div>
     );
   }
 }

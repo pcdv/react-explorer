@@ -4,12 +4,14 @@
 .node > .label {
   height: 1em;
   display: inline-block;
+  vertical-align: top;
 }
 .node .handle {
   display: inline-block;
   margin-right: 6px;
   cursor: pointer;
   width: 10px;
+  height: 1em;
 }
 .node.isDir > .handle:after {
   content: '▾';
@@ -21,4 +23,18 @@
 .node.isDir.open > .handle {
   transform: rotate(0deg);
   transition: transform ease-in .04s;
+  margin-top: -2px;
+  margin-left: 2px;
+  margin-right: 4px;
+}
+.node > .overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1em;
+  background: lightblue;
+  opacity: 0.5;
+}
+.node > .overlay :after {
+  margin-top: -1em;
 }
