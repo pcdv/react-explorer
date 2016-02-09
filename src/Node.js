@@ -7,7 +7,7 @@ export default class Node extends Component {
     this.toggle = this.toggle.bind(this)
     this.select = this.select.bind(this)
     this.state = {
-      open: false, selected: false,
+      open: false
     }
   }
 
@@ -23,7 +23,7 @@ export default class Node extends Component {
   }
 
   select() {
-    this.setState({selected: !this.state.selected})
+    this.props.selection.select(this.props.node, 'node')
   }
 
   render() {
@@ -35,14 +35,14 @@ export default class Node extends Component {
       open: this.state.open,
       closed: !this.state.open,
       isDir: !model.isLeaf(node),
-      selected: this.state.selected,
+      selected: this.props.selection.isSelectedObject(this.props.node)
     })
 
     var children
     if (this.state.open) {
       children = (
         <div className="children">
-          {model.getChildren(node).map(n => <Node model={model} node={n} key={model.getLabel(n)}/>)}
+          {model.getChildren(node).map(n => <Node selection={this.props.selection} model={model} node={n} key={model.getLabel(n)}/>)}
         </div>
       )
     }

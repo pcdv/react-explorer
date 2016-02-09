@@ -32,8 +32,8 @@
   left: 0;
   right: 0;
   height: 1em;
-  opacity: 0.5;
+  opacity: 0.2;
 }
 .node.selected > .overlay {
-  background: lightblue;
+  background: #0090FF;
 }
