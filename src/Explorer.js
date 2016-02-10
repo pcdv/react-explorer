@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import Node from './Node'
-import SelectionProvider from './SelectionProvider'
 import Tree from './Tree'
-import _ from 'lodash'
 
 var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40
 
@@ -15,7 +13,6 @@ var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40
 export default class Explorer extends Component {
   constructor(props) {
     super(props)
-    //_.bindAll(this)
     this.onChange = this.onChange.bind(this)
     this.onKeyDown = this.onKeyDown.bind(this)
     this.tree = new Tree(this.props.model)
