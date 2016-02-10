@@ -5,8 +5,9 @@
   height: 1em;
   display: inline-block;
   vertical-align: top;
+  user-select: none;
 }
-.node .handle {
+.node > .handle {
   display: inline-block;
   margin-right: 6px;
   cursor: pointer;
@@ -23,9 +24,7 @@
 .node.isDir.open > .handle {
   transform: rotate(0deg);
   transition: transform ease-in .04s;
-  margin-top: -2px;
-  margin-left: 2px;
-  margin-right: 4px;
+  margin: -2px 4px 0 2px;
 }
 .node > .overlay {
   position: absolute;
