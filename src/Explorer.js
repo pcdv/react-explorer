@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import Node from './Node'
 import SelectionProvider from './SelectionProvider'
+import Tree from './Tree'
+import _ from 'lodash'
+
+var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40
 
 /**
  * A high-level tree-view component that renders the contents of a TreeModel.
@@ -11,26 +15,45 @@ import SelectionProvider from './SelectionProvider'
 export default class Explorer extends Component {
   constructor(props) {
     super(props)
-    this.onSelection = this.onSelection.bind(this)
-    this.state = { selection: props.selection || new SelectionProvider }
+    //_.bindAll(this)
+    this.onChange = this.onChange.bind(this)
+    this.onKeyDown = this.onKeyDown.bind(this)
+    this.tree = new Tree(this.props.model)
   }
 
   componentDidMount() {
-    this.state.selection.addChangeListener(this.onSelection)
+    this.tree.addChangeListener(this.onChange)
+    document.addEventListener('keydown', this.onKeyDown)
   }
 
   componentWillUnmount() {
-    this.state.selection.removeChangeListener(this.onSelection)
+    this.tree.removeChangeListener(this.onChange)
+    document.removeEventListener('keydown', this.onKeyDown)
   }
 
-  onSelection() {
+  onChange() {
     this.forceUpdate()
+  }
+
+  onKeyDown(e) {
+    if (e.keyCode == DOWN) {
+      this.tree.down()
+    }
+    else if (e.keyCode == RIGHT) {
+      this.tree.right()
+    }
+    else if (e.keyCode == LEFT) {
+      this.tree.left()
+    }
+    else if (e.keyCode == UP) {
+      this.tree.up()
+    }
   }
 
   render() {
     return (
       <div style={{ position: 'relative' }}>
-        <Node node={this.props.model.getRoot()} model={this.props.model} selection={this.state.selection}/>
+        <Node node={this.tree.getRoot()} tree={this.tree}/>
       </div>
     );
   }

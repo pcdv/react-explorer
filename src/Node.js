@@ -6,43 +6,35 @@ export default class Node extends Component {
     super(props)
     this.toggle = this.toggle.bind(this)
     this.select = this.select.bind(this)
-    this.state = {
-      open: false
-    }
   }
 
   /**
    * Open or close the node.
    */
   toggle() {
-    if (!this.props.model.isLeaf(this.props.node)) {
-      this.setState({
-        open: !this.state.open
-      })
-    }
+    this.props.tree.toggle(this.props.node)
   }
 
   select() {
-    this.props.selection.select(this.props.node, 'node')
+    this.props.tree.select(this.props.node)
   }
 
   render() {
-    var model = this.props.model
     var node = this.props.node
 
     var cls = classNames('node', {
-      leaf: model.isLeaf(node),
-      open: this.state.open,
-      closed: !this.state.open,
-      isDir: !model.isLeaf(node),
-      selected: this.props.selection.isSelectedObject(this.props.node)
+      leaf: node.isLeaf,
+      open: node.open,
+      closed: !node.open,
+      isDir: !node.isLeaf,
+      selected: node.selected
     })
 
     var children
-    if (this.state.open) {
+    if (node.open && node.children) {
       children = (
         <div className="children">
-          {model.getChildren(node).map(n => <Node selection={this.props.selection} model={model} node={n} key={model.getLabel(n)}/>)}
+          {node.children.map(n => <Node tree={this.props.tree} node={n} key={node.key}/>)}
         </div>
       )
     }
@@ -50,7 +42,7 @@ export default class Node extends Component {
       <div className={cls}>
         <div className="overlay" onClick={this.select}/>
         <div className="handle" onClick={this.toggle}/>
-        <div className="label">{model.getLabel(node)}</div>
+        <div className="label">{node.label}</div>
         {children}
       </div>
     );
@@ -59,5 +51,5 @@ export default class Node extends Component {
 
 Node.propTypes = {
   node: React.PropTypes.object,
-  model: React.PropTypes.object
+  tree: React.PropTypes.object
 }
