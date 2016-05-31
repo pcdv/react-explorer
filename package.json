@@ -22,6 +22,7 @@
   "bugs": {
     "url": ""
   },
+  "directories": ["lib", "build"],
   "main": "lib/Explorer.js",
   "homepage": "",
   "devDependencies": {
