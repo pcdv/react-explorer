@@ -1,6 +1,6 @@
 {
   "name": "react-explorer",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Boilerplate for ReactJS project with hot code reloading",
   "scripts": {
     "start": "watchify -t [ loose-envify --NODE_ENV development ] -t babelify -t aliasify -o lib/bundle.js -v -d src/Explorer.js",
@@ -22,7 +22,10 @@
   "bugs": {
     "url": ""
   },
-  "directories": ["lib", "build"],
+  "directories": [
+    "lib",
+    "build"
+  ],
   "main": "lib/Explorer.js",
   "homepage": "",
   "devDependencies": {
