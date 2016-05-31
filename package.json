@@ -26,6 +26,7 @@
     "lib",
     "build"
   ],
+  "main": "lib/Explorer.js",
   "homepage": "",
   "devDependencies": {
     "aliasify": "^1.8.1",
