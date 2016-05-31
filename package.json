@@ -22,6 +22,7 @@
   "bugs": {
     "url": ""
   },
+  "files": ["lib", "build"],
   "homepage": "",
   "devDependencies": {
     "aliasify": "^1.8.1",
