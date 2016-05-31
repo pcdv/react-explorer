@@ -34,5 +34,19 @@
   opacity: 0.2;
 }
 .node.selected > .overlay {
+  background: #aaa;
+}
+:focus .node.selected > .overlay {
   background: #0090FF;
+}
+.explorer {
+  outline: 0px solid transparent;
+}
+.node input[type=text] {
+  padding: 0;
+  border: none;
+  vertical-align: middle;
+  font-size: 14px;
+  margin-top: -6px;
+  height: 1em;
 }

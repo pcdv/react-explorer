@@ -34,7 +34,8 @@ export default class App extends Component {
             {
               label: "hello.txt"
             }, {
-              label: "world.txt"
+              label: "world.txt",
+              children: []
             }
           ]
         }, {

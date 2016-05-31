@@ -1,5 +1,4 @@
 import AbstractStore from './AbstractStore'
-import _ from 'lodash'
 
 class NodeWrapper {
   constructor(data, parent, model) {
@@ -35,6 +34,10 @@ export default class Tree extends AbstractStore {
   __recompute() {
     this.list = []
     scan(this.root, this.list)
+    if (!this.selected) {
+      this.list[0].selected = true
+      this.selected = this.list[0]
+    }
     this.__emitChange()
   }
 
@@ -69,6 +72,28 @@ export default class Tree extends AbstractStore {
       this.selected.selected = false
     this.selected = node
     node.selected = true
+    this.__emitChange()
+  }
+
+  edit() {
+    if (this.selected && !this.selected.editing) {
+      this.selected.editing = true
+      this.__emitChange()
+    }
+  }
+
+  isEditing() {
+    return this.selected && this.selected.editing
+  }
+
+  cancelEdition() {
+    this.selected.editing = false;
+    this.__emitChange()
+  }
+
+  applyEdition(newLabel) {
+    this.selected.editing = false;
+    this.selected.label = newLabel
     this.__emitChange()
   }
 

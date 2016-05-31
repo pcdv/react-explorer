@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import classNames from 'classnames'
+import Label from './Label'
 
 export default class Node extends Component {
   constructor(props) {
@@ -24,10 +25,11 @@ export default class Node extends Component {
 
     var cls = classNames('node', {
       leaf: node.isLeaf,
+      isDir: !node.isLeaf,
       open: node.open,
       closed: !node.open,
-      isDir: !node.isLeaf,
-      selected: node.selected
+      selected: node.selected,
+      editing: node.editing
     })
 
     var children
@@ -40,9 +42,9 @@ export default class Node extends Component {
     }
     return (
       <div className={cls}>
-        <div className="overlay" onClick={this.select}/>
+        { node.editing ? null :<div className="overlay" onClick={this.select}/> }
         <div className="handle" onClick={this.toggle}/>
-        <div className="label">{node.label}</div>
+        <Label node={node} tree={this.props.tree}/>
         {children}
       </div>
     );

@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import Node from './Node'
 import Tree from './Tree'
+import classNames from 'classnames'
 
-var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40
+var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40, F2 = 113
 
 /**
  * A high-level tree-view component that renders the contents of a TreeModel.
- * It may be controlled with keyboard. It is designed to be easily styled.
- * It supports multiple selection of tree items as well as context menus.
- * It supports lazy-loading of nodes. It supports inline edition of node label.
+ * It may be controlled with the keyboard. It is designed to be easily styled.
+ * It supports lazy-loading of nodes. It supports inline edition of node labels.
+ * TODO support multiple selection of tree items as well as context menus.
  */
 export default class Explorer extends Component {
   constructor(props) {
@@ -16,16 +17,15 @@ export default class Explorer extends Component {
     this.onChange = this.onChange.bind(this)
     this.onKeyDown = this.onKeyDown.bind(this)
     this.tree = new Tree(this.props.model)
+    this.state = {}
   }
 
   componentDidMount() {
     this.tree.addChangeListener(this.onChange)
-    document.addEventListener('keydown', this.onKeyDown)
   }
 
   componentWillUnmount() {
     this.tree.removeChangeListener(this.onChange)
-    document.removeEventListener('keydown', this.onKeyDown)
   }
 
   onChange() {
@@ -33,6 +33,8 @@ export default class Explorer extends Component {
   }
 
   onKeyDown(e) {
+    if (this.tree.isEditing())
+      return
     if (e.keyCode == DOWN) {
       this.tree.down()
     }
@@ -45,11 +47,15 @@ export default class Explorer extends Component {
     else if (e.keyCode == UP) {
       this.tree.up()
     }
+    else if (e.keyCode == F2) {
+      this.tree.edit()
+    }
   }
 
   render() {
+    var cls = classNames('explorer', {focused: this.state.focused})
     return (
-      <div style={{ position: 'relative' }}>
+      <div className={cls} style={{ position: 'relative' }} tabIndex={1} onKeyDown={this.onKeyDown}>
         <Node node={this.tree.getRoot()} tree={this.tree}/>
       </div>
     );
