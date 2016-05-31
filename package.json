@@ -22,6 +22,7 @@
   "bugs": {
     "url": ""
   },
+  "files": ["lib/", "build/", "index.js" ],
   "main": "lib/Explorer.js",
   "homepage": "",
   "devDependencies": {
