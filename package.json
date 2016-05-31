@@ -27,6 +27,10 @@
     "build/",
     "index.js"
   ],
+  "directories": {
+    "lib": "./lib",
+    "build": "./build"
+  },
   "main": "lib/Explorer.js",
   "homepage": "",
   "devDependencies": {
