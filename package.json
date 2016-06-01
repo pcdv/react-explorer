@@ -31,7 +31,7 @@
     "lib": "./lib",
     "build": "./build"
   },
-  "main": "lib/Explorer.js",
+  "main": "lib/index.js",
   "homepage": "",
   "devDependencies": {
     "aliasify": "^1.8.1",
