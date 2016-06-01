@@ -1,5 +1,9 @@
 import AbstractStore from './AbstractStore'
 
+/**
+ * Wraps a node (data given by the user) so we can attach more info like
+ * parent, open/closed state etc.
+ */
 class NodeWrapper {
   constructor(data, parent, model) {
     this.data = data
@@ -11,6 +15,10 @@ class NodeWrapper {
   }
 }
 
+/**
+ * Recursively builds the list of nodes that we need to display according
+ * to their 'open' state (we need to scan only open nodes).
+ */
 function scan(node, list) {
   var index = list.length
   node.index = index
@@ -20,6 +28,9 @@ function scan(node, list) {
   }
 }
 
+/**
+ * Holds the state of the Explorer component.
+ */
 export default class Tree extends AbstractStore {
   constructor(model) {
     super()
