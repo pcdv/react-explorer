@@ -24,7 +24,7 @@
   },
   "files": [
     "lib/",
-    "build/",
+    "build/"
   ],
   "main": "lib/index.js",
   "homepage": "",

@@ -1,4 +1,4 @@
 "use strict";
 
-export {default as Explorer} from "./Explorer"
-export {default as DefaultModel} from "./DefaultModel"
+export * from "./Explorer"
+export * from "./DefaultModel"
