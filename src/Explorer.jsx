@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Node from './Node.jsx'
+import Node from './Node'
 import Tree from './Tree'
 import classNames from 'classnames'
 
@@ -71,5 +71,5 @@ export default class Explorer extends Component {
 }
 Explorer.propTypes = {
   model: React.PropTypes.object,
-  onSelect: PropTypes.func
+  onSelect: React.PropTypes.func
 }
