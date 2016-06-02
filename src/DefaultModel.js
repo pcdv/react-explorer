@@ -7,19 +7,19 @@ export default class DefaultModel {
     return this.tree
   }
 
-  getLabel(node) {
-    return node.label
+  getLabel(data) {
+    return data.label
   }
 
-  isLeaf(node) {
-    return !node.children
+  isLeaf(data) {
+    return !data.children
   }
 
-  getChildren(node) {
-    return node.children
+  getChildren(data) {
+    return data.children
   }
 
-  getKey(node) {
-    return node.key || node.label
+  getKey(data) {
+    return data.key || data.label
   }
 }
