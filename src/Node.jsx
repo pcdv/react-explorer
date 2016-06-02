@@ -40,6 +40,13 @@ export default class Node extends Component {
         </div>
       )
     }
+
+    if (node.hidden) {
+      return (
+        <div>{children}</div>
+      )
+    }
+
     return (
       <div className={cls}>
         {node.editing
@@ -51,7 +58,6 @@ export default class Node extends Component {
     );
   }
 }
-
 Node.propTypes = {
   node: React.PropTypes.object,
   tree: React.PropTypes.object

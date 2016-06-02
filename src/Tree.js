@@ -45,8 +45,10 @@ export default class Tree extends AbstractStore {
     this.select = this.select.bind(this)
     this.root = this.wrap(model.getRoot())
     this.right = this.right.bind(this)
-    if (!opt.showRoot)
+    if (!opt.showRoot) {
       this.__open0(this.root)
+      root.hidden = true
+    }
     this.__recompute('INIT')
   }
 
@@ -134,7 +136,7 @@ export default class Tree extends AbstractStore {
     if (this.selected) {
       if (this.selected.open)
         this.close(this.selected)
-      else if (this.selected.parent) {
+      else if (this.selected.index > 0 && this.selected.parent) {
         this.select(this.selected.parent)
       }
     } else this.select(this.root)
