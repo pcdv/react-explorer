@@ -25,7 +25,7 @@ function scan(node, list, showRoot) {
   node.index = index
   if (showRoot || list.length > 0)
     list.push(node)
-  if (node.open) {
+  if (node.open || list.length == 0) {
     node.children.forEach(n => scan(n, list))
   }
 }
