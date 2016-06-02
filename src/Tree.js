@@ -47,7 +47,7 @@ export default class Tree extends AbstractStore {
     this.right = this.right.bind(this)
     if (!opt.showRoot) {
       this.__open0(this.root)
-      root.hidden = true
+      this.root.hidden = true
     }
     this.__recompute('INIT')
   }
