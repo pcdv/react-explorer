@@ -20,7 +20,7 @@ export default class Explorer extends Component {
     super(props)
     this.onChange = this.onChange.bind(this)
     this.onKeyDown = this.onKeyDown.bind(this)
-    this.tree = new Tree(this.props.model)
+    this.tree = new Tree(this.props.model, {showRoot: !!props.showRoot})
     this.state = {}
   }
 
@@ -71,5 +71,6 @@ export default class Explorer extends Component {
 }
 Explorer.propTypes = {
   model: React.PropTypes.object,
-  onSelect: React.PropTypes.func
+  onSelect: React.PropTypes.func,
+  showRoot: React.PropTypes.bool,
 }

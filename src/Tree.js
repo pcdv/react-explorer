@@ -20,10 +20,11 @@ class NodeWrapper {
  * Recursively builds the list of nodes that we need to display according
  * to their 'open' state (we need to scan only open nodes).
  */
-function scan(node, list) {
+function scan(node, list, showRoot) {
   var index = list.length
   node.index = index
-  list.push(node)
+  if (showRoot || list.length > 0)
+    list.push(node)
   if (node.open) {
     node.children.forEach(n => scan(n, list))
   }
@@ -33,8 +34,9 @@ function scan(node, list) {
  * Holds the state of the Explorer component.
  */
 export default class Tree extends AbstractStore {
-  constructor(model) {
+  constructor(model, opt) {
     super()
+    this.opt = opt
     this.model = model
     this.wrap = this.wrap.bind(this)
     this.select = this.select.bind(this)
@@ -45,7 +47,7 @@ export default class Tree extends AbstractStore {
 
   __recompute(event) {
     this.list = []
-    scan(this.root, this.list)
+    scan(this.root, this.list, this.opt.showRoot)
     if (!this.selected) {
       this.list[0].selected = true
       this.selected = this.list[0]
