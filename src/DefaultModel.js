@@ -18,4 +18,8 @@ export default class DefaultModel {
   getChildren(node) {
     return node.children
   }
+
+  getKey(node) {
+    return node.key || node.label
+  }
 }

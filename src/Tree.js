@@ -10,6 +10,7 @@ class NodeWrapper {
     this.parent = parent
     this.label = model.getLabel(data)
     this.isLeaf = model.isLeaf(data)
+    this.key = model.getKey(data)
     this.open = false
     this.selected = false
   }
