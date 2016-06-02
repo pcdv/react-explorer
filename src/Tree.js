@@ -135,7 +135,7 @@ export default class Tree extends AbstractStore {
         this.selected.selected = false
         this.selected = this.list[this.selected.index + 1]
         this.selected.selected = true
-        this.__emitChange()
+        this.__emitChange('SELECTION')
       }
     } else {
       this.select(this.root)

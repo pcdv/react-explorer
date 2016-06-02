@@ -33,7 +33,6 @@ export default class Explorer extends Component {
   }
 
   onChange(event) {
-    console.log(event)
     this.forceUpdate()
     if (event == 'SELECTION' && this.props.onSelect)
       this.props.onSelect(this.tree.selected)
