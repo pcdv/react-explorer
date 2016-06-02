@@ -25,7 +25,7 @@ function scan(node, list, showRoot) {
   node.index = index
   if (showRoot || list.length > 0)
     list.push(node)
-  if (node.open || list.length == 0) {
+  if (node.open) {
     node.children.forEach(n => scan(n, list))
   }
 }
@@ -42,6 +42,8 @@ export default class Tree extends AbstractStore {
     this.select = this.select.bind(this)
     this.root = this.wrap(model.getRoot())
     this.right = this.right.bind(this)
+    if (!opt.showRoot)
+      this.__open0(this.root)
     this.__recompute('INIT')
   }
 
@@ -71,9 +73,13 @@ export default class Tree extends AbstractStore {
   }
 
   open(node) {
+    this.__open0(node)
+    this.__recompute('OPEN')
+  }
+
+  __open0(node) {
     node.open = true
     node.children = this.model.getChildren(node.data).map(d => this.wrap(d, node, this.model))
-    this.__recompute('OPEN')
   }
 
   close(node) {
