@@ -11,8 +11,8 @@ export default class AbstractStore {
     this.__emitter = new EventEmitter();
   }
 
-  __emitChange() {
-    this.__emitter.emit(CHANGE_EVENT);
+  __emitChange(event) {
+    this.__emitter.emit(CHANGE_EVENT, event);
   }
 
   /**
