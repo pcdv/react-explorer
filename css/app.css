@@ -1,48 +1,59 @@
-.node > .children {
+.explorer {
+  outline: 0px solid transparent;
+}
+
+.rxp-node > .children {
   margin-left: 10px;
 }
-.node > .label {
+
+.rxp-node > .label {
   height: 1em;
   display: inline-block;
   vertical-align: top;
   user-select: none;
 }
-.node > .handle {
+
+.rxp-node > .handle {
   display: inline-block;
   margin-right: 6px;
   cursor: pointer;
   width: 10px;
   height: 1em;
 }
-.node.isDir > .handle:after {
+
+/* HTML page needs to be in UTF-8 charset*/
+.rxp-node.isDir > .handle:after {
   content: '▾';
 }
-.node.isDir.closed > .handle {
+
+.rxp-node.isDir.closed > .handle {
   transform: rotate(-90deg);
   transition: transform ease-in .04s;
 }
-.node.isDir.open > .handle {
+
+.rxp-node.isDir.open > .handle {
   transform: rotate(0deg);
   transition: transform ease-in .04s;
   margin: -2px 4px 0 2px;
 }
-.node > .overlay {
+
+.rxp-node > .overlay {
   position: absolute;
   left: 0;
   right: 0;
   height: 1em;
   opacity: 0.2;
 }
-.node.selected > .overlay {
+
+.rxp-node.selected > .overlay {
   background: #aaa;
 }
-:focus .node.selected > .overlay {
+
+:focus .rxp-node.selected > .overlay {
   background: #0090FF;
 }
-.explorer {
-  outline: 0px solid transparent;
-}
-.node input[type=text] {
+
+.rxp-node input[type=text] {
   padding: 0;
   border: none;
   vertical-align: middle;
