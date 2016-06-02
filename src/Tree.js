@@ -40,17 +40,17 @@ export default class Tree extends AbstractStore {
     this.select = this.select.bind(this)
     this.root = this.wrap(model.getRoot())
     this.right = this.right.bind(this)
-    this.__recompute()
+    this.__recompute('INIT')
   }
 
-  __recompute() {
+  __recompute(event) {
     this.list = []
     scan(this.root, this.list)
     if (!this.selected) {
       this.list[0].selected = true
       this.selected = this.list[0]
     }
-    this.__emitChange()
+    this.__emitChange(event)
   }
 
   wrap(node, parent) {
@@ -71,12 +71,12 @@ export default class Tree extends AbstractStore {
   open(node) {
     node.open = true
     node.children = this.model.getChildren(node.data).map(d => this.wrap(d, node, this.model))
-    this.__recompute()
+    this.__recompute('OPEN')
   }
 
   close(node) {
     node.open = false
-    this.__recompute()
+    this.__recompute('CLOSE')
   }
 
   select(node) {
@@ -84,13 +84,13 @@ export default class Tree extends AbstractStore {
       this.selected.selected = false
     this.selected = node
     node.selected = true
-    this.__emitChange()
+    this.__emitChange('SELECTION')
   }
 
   edit() {
     if (this.selected && !this.selected.editing) {
       this.selected.editing = true
-      this.__emitChange()
+      this.__emitChange('EDIT_START')
     }
   }
 
@@ -100,13 +100,13 @@ export default class Tree extends AbstractStore {
 
   cancelEdition() {
     this.selected.editing = false;
-    this.__emitChange()
+    this.__emitChange('EDIT_CANCEL')
   }
 
   applyEdition(newLabel) {
     this.selected.editing = false;
     this.selected.label = newLabel
-    this.__emitChange()
+    this.__emitChange('EDIT_APPLY')
   }
 
   right() {
@@ -148,7 +148,7 @@ export default class Tree extends AbstractStore {
         this.selected.selected = false
         this.selected = this.list[this.selected.index - 1]
         this.selected.selected = true
-        this.__emitChange()
+        this.__emitChange('SELECTION')
       }
     } else {
       this.select(this.root)

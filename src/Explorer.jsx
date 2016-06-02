@@ -1,9 +1,13 @@
 import React, {Component} from 'react';
-import Node from './Node'
+import Node from './Node.jsx'
 import Tree from './Tree'
 import classNames from 'classnames'
 
-var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40, F2 = 113
+var LEFT = 37,
+  UP = 38,
+  RIGHT = 39,
+  DOWN = 40,
+  F2 = 113
 
 /**
  * A high-level tree-view component that renders the contents of a TreeModel.
@@ -28,8 +32,10 @@ export default class Explorer extends Component {
     this.tree.removeChangeListener(this.onChange)
   }
 
-  onChange() {
+  onChange(event) {
     this.forceUpdate()
+    if (event == 'SELECTION' && this.props.onSelect)
+      this.props.onSelect(this.tree.selected)
   }
 
   onKeyDown(e) {
@@ -37,17 +43,13 @@ export default class Explorer extends Component {
       return
     if (e.keyCode == DOWN) {
       this.tree.down()
-    }
-    else if (e.keyCode == RIGHT) {
+    } else if (e.keyCode == RIGHT) {
       this.tree.right()
-    }
-    else if (e.keyCode == LEFT) {
+    } else if (e.keyCode == LEFT) {
       this.tree.left()
-    }
-    else if (e.keyCode == UP) {
+    } else if (e.keyCode == UP) {
       this.tree.up()
-    }
-    else if (e.keyCode == F2) {
+    } else if (e.keyCode == F2) {
       this.tree.edit()
     }
   }
@@ -55,13 +57,19 @@ export default class Explorer extends Component {
   render() {
     var cls = classNames('explorer', {focused: this.state.focused})
     return (
-      <div className={cls} style={{ position: 'relative' }} tabIndex={1} onKeyDown={this.onKeyDown}>
+      <div
+        className={cls}
+        style={{
+        position: 'relative'
+      }}
+        tabIndex={1}
+        onKeyDown={this.onKeyDown}>
         <Node node={this.tree.getRoot()} tree={this.tree}/>
       </div>
     );
   }
 }
-
 Explorer.propTypes = {
-  model: React.PropTypes.object
+  model: React.PropTypes.object,
+  onSelect: PropTypes.func
 }

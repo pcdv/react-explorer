@@ -1,7 +1,9 @@
-import React, { PropTypes } from 'react'
+import React, {PropTypes} from 'react'
 import ReactDOM from 'react-dom'
 
-var ESCAPE_KEY = 27, ENTER_KEY = 13, F2 = 113
+var ESCAPE_KEY = 27,
+  ENTER_KEY = 13,
+  F2 = 113
 
 class Label extends React.Component {
   constructor(props) {
@@ -9,7 +11,9 @@ class Label extends React.Component {
     this.onEdit = this.onEdit.bind(this)
     this.onKeyDown = this.onKeyDown.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
-    this.state = { newLabel: props.node.label}
+    this.state = {
+      newLabel: props.node.label
+    }
   }
 
   componentDidUpdate() {
@@ -41,12 +45,16 @@ class Label extends React.Component {
     this.props.tree.applyEdition(this.state.newLabel)
   }
 
-  render () {
+  render() {
     var node = this.props.node
     if (node.editing)
-      return (
-        <input ref="edit" type="text" value={this.state.newLabel} onChange={this.onEdit} onBlur={this.onSubmit} onKeyDown={this.onKeyDown}/>
-      )
+      return (<input
+        ref="edit"
+        type="text"
+        value={this.state.newLabel}
+        onChange={this.onEdit}
+        onBlur={this.onSubmit}
+        onKeyDown={this.onKeyDown}/>)
     else
       return (
         <div className="label">{node.label}</div>
