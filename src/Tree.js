@@ -21,12 +21,15 @@ class NodeWrapper {
  * to their 'open' state (we need to scan only open nodes).
  */
 function scan(node, list, showRoot) {
-  var index = list.length
-  node.index = index
-  if (showRoot || list.length > 0)
+
+  if (showRoot || list.length > 0) {
+    var index = list.length
+    node.index = index
     list.push(node)
+  }
+
   if (node.open) {
-    node.children.forEach(n => scan(n, list))
+    node.children.forEach(n => scan(n, list, true))
   }
 }
 
