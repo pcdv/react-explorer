@@ -9,7 +9,7 @@
 .rxp-node > .label {
   height: 1em;
   display: inline-block;
-  vertical-align: top;
+  vertical-align: middle;
   user-select: none;
 }
 
