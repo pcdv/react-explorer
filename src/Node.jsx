@@ -24,7 +24,7 @@ export default class Node extends Component {
     var node = this.props.node
 
     var cls = classNames('rxp-node', {
-      leaf: node.isLeaf,
+      'rxp-leaf': node.isLeaf,
       isDir: !node.isLeaf,
       open: node.open,
       closed: !node.open,
