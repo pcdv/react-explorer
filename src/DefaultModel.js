@@ -1,4 +1,4 @@
-export class DefaultModel {
+export default class DefaultModel {
   constructor(tree) {
     this.tree = tree
   }
