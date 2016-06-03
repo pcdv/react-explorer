@@ -16,10 +16,21 @@ class NodeWrapper {
   }
 }
 
+/**
+ * Finds child in wrapper children matching specified data (from root model).
+ */
 function findChild(wrapper, data) {
   for (var i in wrapper.children || []) {
     if (wrapper.children[i].data == data)
       return wrapper.children[i]
+  }
+  return null
+}
+
+function findNode(wrapper, children) {
+  for (var i in children) {
+    if (children[i] == wrapper.data)
+      return children[i]
   }
   return null
 }
