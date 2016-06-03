@@ -37,7 +37,7 @@ function scan(node, list, showRoot) {
  * Holds the state of the Explorer component.
  */
 export default class TreeState extends AbstractStore {
-  constructor(model, opt) {
+  constructor(model, opt = {}) {
     super()
     this.opt = opt
     this.model = model
@@ -52,6 +52,10 @@ export default class TreeState extends AbstractStore {
     }
     this.__recompute('INIT')
     this.initializing = false
+  }
+
+  refresh() {
+    this.__recompute('REFRESH')
   }
 
   __recompute(event) {
