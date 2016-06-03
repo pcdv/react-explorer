@@ -73,7 +73,7 @@ export default class TreeState extends AbstractStore {
       var childrenData = this.model.getChildren(node.data) || []
 
       // check for deleted children
-      for (var i = node.children.length; i >= 0; i--) {
+      for (var i = node.children.length - 1; i >= 0; i--) {
         var child = findNode(node.children[i], childrenData)
         if (!child)
           node.children.splice(i, 1)
