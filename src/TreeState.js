@@ -16,21 +16,12 @@ class NodeWrapper {
   }
 }
 
-/**
- * Recursively builds the list of nodes that we need to display according
- * to their 'open' state (we need to scan only open nodes).
- */
-function scan(node, list, showRoot) {
-
-  if (showRoot || list.length > 0) {
-    var index = list.length
-    node.index = index
-    list.push(node)
+function findChild(wrapper, data) {
+  for (var i in wrapper.children || []) {
+    if (wrapper.children[i].data == data)
+      return wrapper.children[i]
   }
-
-  if (node.open) {
-    node.children.forEach(n => scan(n, list, true))
-  }
+  return null
 }
 
 /**
@@ -54,13 +45,50 @@ export default class TreeState extends AbstractStore {
     this.initializing = false
   }
 
-  refresh() {
-    this.__recompute('REFRESH')
+  /**
+   * Recursively builds the list of nodes that we need to display according
+   * to their 'open' state (we need to scan only open nodes).
+   */
+  scan(node, list, showRoot) {
+
+    if (showRoot || list.length > 0) {
+      var index = list.length
+      node.index = index
+      list.push(node)
+    }
+
+    if (node.open) {
+      // check whether children have changed in model vs tree-state
+      var childrenData = this.model.getChildren(node.data) || []
+
+      // check for deleted children
+      for (var i = node.children.length; i >= 0; i--) {
+        var child = findNode(node.children[i], childrenData)
+        if (!child)
+          node.children.splice(i, 1)
+      }
+
+      // check for new children
+      for (var i in childrenData) {
+        var child = findChild(node, childrenData[i])
+        if (child)
+          this.scan(child, list, true)
+        else
+          node.children.push(this.wrap(childrenData[i], node))
+      }
+    }
   }
+
+
+
+  /**
+   * Must be called if the contents of tree are externally changed.
+   */
+  refresh() {}
 
   __recompute(event) {
     this.list = []
-    scan(this.root, this.list, this.opt.showRoot)
+    this.scan(this.root, this.list, this.opt.showRoot)
     if (!this.selected) {
       this.list[0].selected = true
       this.selected = this.list[0]
