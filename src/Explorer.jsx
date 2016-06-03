@@ -50,21 +50,21 @@ export default class Explorer extends Component {
   }
 
   componentDidMount() {
-    this.props.tree.addChangeListener(this.onChange)
+    this.state.tree.addChangeListener(this.onChange)
   }
 
   componentWillUnmount() {
-    this.props.tree.removeChangeListener(this.onChange)
+    this.state.tree.removeChangeListener(this.onChange)
   }
 
   onChange(event) {
     this.forceUpdate()
     if (event == 'SELECTION' && this.props.onSelect)
-      this.props.onSelect(this.props.tree.selected)
+      this.props.onSelect(this.state.tree.selected)
   }
 
   onKeyDown(e) {
-    var tree = this.props.tree
+    var tree = this.state.tree
     if (tree.isEditing())
       return
     if (e.keyCode == DOWN) {
@@ -81,7 +81,7 @@ export default class Explorer extends Component {
   }
 
   render() {
-    var tree = this.props.tree
+    var tree = this.state.tree
     return (
       <div
         className="explorer"
