@@ -36,7 +36,7 @@ function scan(node, list, showRoot) {
 /**
  * Holds the state of the Explorer component.
  */
-export default class Tree extends AbstractStore {
+export default class TreeState extends AbstractStore {
   constructor(model, opt) {
     super()
     this.opt = opt

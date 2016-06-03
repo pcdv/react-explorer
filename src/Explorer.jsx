@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Node from './Node'
-import Tree from './Tree'
+import TreeState from './TreeState'
+import DefaultModel from './DefaultModel'
 import classNames from 'classnames'
 
 var LEFT = 37,
@@ -20,59 +21,78 @@ export default class Explorer extends Component {
     super(props)
     this.onChange = this.onChange.bind(this)
     this.onKeyDown = this.onKeyDown.bind(this)
-    this.tree = new Tree(this.props.model, {
-      showRoot: !!props.showRoot,
-      openNodes: !!props.openNodes,
-    })
-    this.state = {}
+    this.init(props)
+  }
+
+  componentWillReceiveProps(props) {
+    this.init(props)
+  }
+
+  init(props) {
+    if (!props.state) {
+      if (!props.model) {
+        if (!props.data)
+          throw "Either data, model or state must be present in props"
+        props.model = new DefaultModel(props.data)
+      }
+      props.state = new TreeState(props.model, {
+        showRoot: !!props.showRoot,
+        openNodes: !!props.openNodes
+      })
+    }
   }
 
   componentDidMount() {
-    this.tree.addChangeListener(this.onChange)
+    this.props.state.addChangeListener(this.onChange)
   }
 
   componentWillUnmount() {
-    this.tree.removeChangeListener(this.onChange)
+    this.props.state.removeChangeListener(this.onChange)
   }
 
   onChange(event) {
     this.forceUpdate()
     if (event == 'SELECTION' && this.props.onSelect)
-      this.props.onSelect(this.tree.selected)
+      this.props.onSelect(this.props.state.selected)
   }
 
   onKeyDown(e) {
-    if (this.tree.isEditing())
+    var tree = this.props.state
+    if (tree.isEditing())
       return
     if (e.keyCode == DOWN) {
-      this.tree.down()
+      tree.down()
     } else if (e.keyCode == RIGHT) {
-      this.tree.right()
+      tree.right()
     } else if (e.keyCode == LEFT) {
-      this.tree.left()
+      tree.left()
     } else if (e.keyCode == UP) {
-      this.tree.up()
+      tree.up()
     } else if (e.keyCode == F2) {
-      this.tree.edit()
+      tree.edit()
     }
   }
 
   render() {
-    var cls = classNames('explorer', {focused: this.state.focused})
+    var tree = this.props.state
     return (
       <div
-        className={cls}
-        style={{position: 'relative'}}
+        className="explorer"
+        style={{
+        position: 'relative'
+      }}
         tabIndex={1}
         onKeyDown={this.onKeyDown}>
-        <Node node={this.tree.getRoot()} tree={this.tree}/>
+        <Node node={tree.getRoot()} tree={tree}/>
       </div>
     );
   }
 }
 Explorer.propTypes = {
+  data: React.PropTypes.object,
   model: React.PropTypes.object,
+  state: React.PropTypes.instanceOf(TreeState),
   onSelect: React.PropTypes.func,
   showRoot: React.PropTypes.bool,
-  openNodes: React.PropTypes.bool,
+  openNodes: React.PropTypes.bool
 }
