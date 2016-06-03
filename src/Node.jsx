@@ -32,7 +32,7 @@ export default class Node extends Component {
       editing: node.editing
     })
 
-    var children
+    var children = null
     if (node.open && node.children) {
       children = (
         <div className="children">

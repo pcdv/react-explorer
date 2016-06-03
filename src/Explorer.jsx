@@ -20,7 +20,9 @@ export default class Explorer extends Component {
     super(props)
     this.onChange = this.onChange.bind(this)
     this.onKeyDown = this.onKeyDown.bind(this)
-    this.tree = new Tree(this.props.model, {showRoot: !!props.showRoot})
+    this.tree = new Tree(this.props.model, {
+      showRoot: !!props.showRoot
+    })
     this.state = {}
   }
 
@@ -59,9 +61,7 @@ export default class Explorer extends Component {
     return (
       <div
         className={cls}
-        style={{
-        position: 'relative'
-      }}
+        style={{position: 'relative'}}
         tabIndex={1}
         onKeyDown={this.onKeyDown}>
         <Node node={this.tree.getRoot()} tree={this.tree}/>
@@ -72,5 +72,5 @@ export default class Explorer extends Component {
 Explorer.propTypes = {
   model: React.PropTypes.object,
   onSelect: React.PropTypes.func,
-  showRoot: React.PropTypes.bool,
+  showRoot: React.PropTypes.bool
 }

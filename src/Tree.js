@@ -129,19 +129,19 @@ export default class Tree extends AbstractStore {
       else {
         this.down()
       }
-    } else if (!this.root.hidden)
-      this.select(this.root)
+    } else
+      this.select(this.list[0])
   }
 
   left() {
     if (this.selected) {
       if (this.selected.open)
         this.close(this.selected)
-      else if (this.selected.index > 0 && this.selected.parent) {
+      else if (this.selected.parent && !this.selected.parent.hidden) {
         this.select(this.selected.parent)
       }
-    } else if (!this.root.hidden)
-      this.select(this.root)
+    } else
+      this.select(this.list[0])
   }
 
   down() {
@@ -152,8 +152,8 @@ export default class Tree extends AbstractStore {
         this.selected.selected = true
         this.__emitChange('SELECTION')
       }
-    } else if (!this.root.hidden) {
-      this.select(this.root)
+    } else {
+      this.select(this.list[0])
     }
   }
 
@@ -165,8 +165,8 @@ export default class Tree extends AbstractStore {
         this.selected.selected = true
         this.__emitChange('SELECTION')
       }
-    } else if (!this.root.hidden) {
-      this.select(this.root)
+    } else {
+      this.select(this.list[0])
     }
   }
 }
