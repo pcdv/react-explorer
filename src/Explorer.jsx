@@ -29,35 +29,42 @@ export default class Explorer extends Component {
   }
 
   init(props) {
-    if (!props.state) {
-      if (!props.model) {
+    var model = props.model
+    var state = props.state
+
+    if (!state) {
+      if (!model) {
         if (!props.data)
           throw "Either data, model or state must be present in props"
-        props.model = new DefaultModel(props.data)
+        model = new DefaultModel(props.data)
       }
-      props.state = new TreeState(props.model, {
+
+      state = new TreeState(model, {
         showRoot: !!props.showRoot,
         openNodes: !!props.openNodes
       })
     }
+    this.state = {
+      tree: state
+    }
   }
 
   componentDidMount() {
-    this.props.state.addChangeListener(this.onChange)
+    this.props.tree.addChangeListener(this.onChange)
   }
 
   componentWillUnmount() {
-    this.props.state.removeChangeListener(this.onChange)
+    this.props.tree.removeChangeListener(this.onChange)
   }
 
   onChange(event) {
     this.forceUpdate()
     if (event == 'SELECTION' && this.props.onSelect)
-      this.props.onSelect(this.props.state.selected)
+      this.props.onSelect(this.props.tree.selected)
   }
 
   onKeyDown(e) {
-    var tree = this.props.state
+    var tree = this.props.tree
     if (tree.isEditing())
       return
     if (e.keyCode == DOWN) {
@@ -74,7 +81,7 @@ export default class Explorer extends Component {
   }
 
   render() {
-    var tree = this.props.state
+    var tree = this.props.tree
     return (
       <div
         className="explorer"
