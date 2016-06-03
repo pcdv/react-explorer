@@ -45,11 +45,13 @@ export default class Tree extends AbstractStore {
     this.select = this.select.bind(this)
     this.root = this.wrap(model.getRoot())
     this.right = this.right.bind(this)
+    this.initializing = true
     if (!opt.showRoot) {
       this.__open0(this.root)
       this.root.hidden = true
     }
     this.__recompute('INIT')
+    this.initializing = false
   }
 
   __recompute(event) {
@@ -85,6 +87,13 @@ export default class Tree extends AbstractStore {
   __open0(node) {
     node.open = true
     node.children = this.model.getChildren(node.data).map(d => this.wrap(d, node, this.model))
+    if (this.initializing && this.opt.openNodes) {
+      node.children.forEach(n => {
+        if (!this.model.isLeaf(n.data)) {
+          this.__open0(n)
+        }
+      })
+    }
   }
 
   close(node) {
