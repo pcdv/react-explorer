@@ -22,7 +22,7 @@ export default class Explorer extends Component {
     this.onKeyDown = this.onKeyDown.bind(this)
     this.tree = new Tree(this.props.model, {
       showRoot: !!props.showRoot,
-      openNodes: !!props,openNodes,
+      openNodes: !!props.openNodes,
     })
     this.state = {}
   }
