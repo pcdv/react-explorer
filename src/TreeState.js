@@ -72,6 +72,9 @@ export default class TreeState extends AbstractStore {
       // check whether children have changed in model vs tree-state
       var childrenData = this.model.getChildren(node.data) || []
 
+      // TODO: to optimize perf, do this rescan only when refresh() is
+      // called explicitly + maybe do it at a specific path in tree
+
       // check for deleted children
       for (var i = node.children.length - 1; i >= 0; i--) {
         var child = findNode(node.children[i], childrenData)
@@ -82,20 +85,22 @@ export default class TreeState extends AbstractStore {
       // check for new children
       for (var i in childrenData) {
         var child = findChild(node, childrenData[i])
-        if (child)
-          this.scan(child, list, true)
-        else
-          node.children.push(this.wrap(childrenData[i], node))
+        if (!child) {
+          child = this.wrap(childrenData[i], node)
+          node.children.push(child)
+        }
+        this.scan(child, list, true)
       }
     }
   }
 
 
-
   /**
    * Must be called if the contents of tree are externally changed.
    */
-  refresh() {}
+  refresh() {
+    this.__recompute('REFRESH')
+  }
 
   __recompute(event) {
     this.list = []
