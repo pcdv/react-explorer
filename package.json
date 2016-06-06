@@ -6,7 +6,7 @@
     "compile": "babel -d lib/ src/",
     "start": "watchify -t [ loose-envify --NODE_ENV development ] -t babelify -t aliasify -o lib/bundle.js -v -d src/index.js",
     "prepublish": "babel ./src --out-dir ./lib --source-maps --presets es2015,react --plugins babel-plugin-add-module-exports && browserify ./lib/Explorer.js -o ./build/react-explorer.js --transform browserify-global-shim --standalone ReactExplorer && uglifyjs ./build/react-explorer.js --compress --mangle --output ./build/react-explorer.min.js --source-map ./build/react-explorer.min.js.map",
-    "test": "mochify -R spec",
+    "test": "mochify -R spec --debug",
     "test-debug": "babel-node-debug _mocha --debug-brk",
     "build": "browserify -e src/Explorer.js -p [browserify-resolutions 'react'] -t [ loose-envify --NODE_ENV production ] -t babelify -t aliasify | uglifyjs -cm > lib/bundle.js"
   },
@@ -50,6 +50,7 @@
     "mochify": "^2.18.0",
     "node-sass": "^3.4.2",
     "react": "^15.0.0",
+    "react-addons-test-utils": "^15.1.0",
     "react-dom": "^15.0.0",
     "uglifyjs": "^2.4.10",
     "watchify": "^3.7.0"

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Node from './Node'
+import Node from './Node.jsx'
 import TreeState from './TreeState'
 import DefaultModel from './DefaultModel'
 import classNames from 'classnames'

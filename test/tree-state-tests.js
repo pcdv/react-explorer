@@ -4,8 +4,12 @@ import chai, {
 
 import TreeState from '../src/TreeState'
 import DefaultModel from '../src/DefaultModel'
+import Explorer from '../src/Explorer.jsx'
+import React, {Component} from 'react'
+import ReactTestUtils from 'react-addons-test-utils'
+import asserter from './assertions/Asserter';
 
-describe("TreeState", function() {
+describe("React Explorer", function() {
 
     var data = {
         label: "root",
@@ -25,13 +29,24 @@ describe("TreeState", function() {
     var model = new DefaultModel(data)
     var state = new TreeState(model)
 
-    it("should detect new nodes when refresh() is called", function() {
-        expect(state.list).to.have.length(2)
-        data.children.push({
-            label: "C"
+    describe("TreeState", function() {
+        it("should detect new nodes when refresh() is called", function() {
+            expect(state.list).to.have.length(2)
+            data.children.push({
+                label: "C"
+            })
+            state.refresh()
+            expect(state.list).to.have.length(3)
         })
-        debugger
-        state.refresh()
-        expect(state.list).to.have.length(3)
+    })
+
+    describe("Explorer", function() {
+
+      var explorer = (<Explorer state={state}/>)
+
+        it("should display new nodes when refresh is called", function() {
+          var el = render(explorer, true)
+
+        })
     })
 })
