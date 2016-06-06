@@ -5,10 +5,12 @@
   "scripts": {
     "compile": "babel -d lib/ src/",
     "start": "watchify -t [ loose-envify --NODE_ENV development ] -t babelify -t aliasify -o lib/bundle.js -v -d src/index.js",
-    "prepublish": "babel ./src --out-dir ./lib --source-maps --presets es2015,react --plugins babel-plugin-add-module-exports && browserify ./lib/Explorer.js -o ./build/react-explorer.js --transform browserify-global-shim --standalone ReactExplorer && uglifyjs ./build/react-explorer.js --compress --mangle --output ./build/react-explorer.min.js --source-map ./build/react-explorer.min.js.map",
-    "test": "mochify -R spec --debug",
-    "test-debug": "babel-node-debug _mocha --debug-brk",
-    "build": "browserify -e src/Explorer.js -p [browserify-resolutions 'react'] -t [ loose-envify --NODE_ENV production ] -t babelify -t aliasify | uglifyjs -cm > lib/bundle.js"
+    "prepublish": "babel ./src --out-dir ./lib --source-maps --presets es2015,react,stage-0 --plugins babel-plugin-add-module-exports && browserify ./lib/Explorer.js -o ./build/react-explorer.js --transform browserify-global-shim --standalone ReactExplorer && uglifyjs ./build/react-explorer.js --compress --mangle --output ./build/react-explorer.min.js --source-map ./build/react-explorer.min.js.map",
+    "test": "mochify -R spec",
+    "test-debug": "mochify -R spec --debug",
+    "test-debug2": "babel-node-debug _mocha --debug-brk",
+    "build": "browserify -e src/Explorer.js -p [browserify-resolutions 'react'] -t [ loose-envify --NODE_ENV production ] -t babelify -t aliasify | uglifyjs -cm > lib/bundle.js",
+    "demo": "npm run compile && browserify demo/Examples.jsx -d -t -o demo/bundle.js && http-server -a localhost -p 8000 -c-1"
   },
   "repository": {
     "type": "git",
@@ -45,6 +47,8 @@
     "browserify-global-shim": "^1.0.3",
     "browserify-resolutions": "^1.1.0",
     "chai": "^3.5.0",
+    "chai-spies": "^0.7.1",
+    "http-server": "^0.9.0",
     "loose-envify": "^1.1.0",
     "mocha": "^2.5.3",
     "mochify": "^2.18.0",

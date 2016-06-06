@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import classNames from 'classnames'
-import Label from './Label.jsx'
+import Label from './Label'
 
 export default class Node extends Component {
   constructor(props) {
