@@ -1,10 +1,10 @@
 export default class DefaultModel {
-  constructor(tree) {
-    this.tree = tree
+  constructor(root) {
+    this.root = root
   }
 
   getRoot() {
-    return this.tree
+    return this.root
   }
 
   getLabel(data) {

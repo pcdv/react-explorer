@@ -46,10 +46,7 @@ describe("React Explorer", function() {
 
       describe("Explorer", function() {
 
-          var explorer = ( < Explorer state = {
-              state
-            }
-            />)
+          var explorer = (<Explorer state={state} />)
 
             it("should display new nodes when refresh is called", function() {
               asserter(explorer, true).assertNodeCount(4)
